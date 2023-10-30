@@ -20,7 +20,7 @@ class Items {
             exit(1);
         }
 
-        $saved = file_put_contents($this->fileName, $item, FILE_APPEND);
+        $saved = file_put_contents($this->getFilePath(), $item, FILE_APPEND);
 
         if ($saved) {
             echo "Item added successfully." . PHP_EOL;
@@ -54,7 +54,7 @@ class Items {
 
         $content = $this->getContentAsString();
         $newContent = str_replace($oldItem, $newItem, $content);
-        $saved = file_put_contents($this->fileName, $newContent);
+        $saved = file_put_contents($this->getFilePath(), $newContent);
         echo $saved ? "Item updated successfully." . PHP_EOL : "Could not update item" . PHP_EOL;
         
     }
@@ -75,7 +75,7 @@ class Items {
         $content = $this->getContentAsString();
 
         $newContent = str_replace($item, "", $content);
-        $saved = file_put_contents($this->fileName, $newContent);
+        $saved = file_put_contents($this->getFilePath(), $newContent);
         echo $saved ? "Item deleted successfully." . PHP_EOL : "Could not delete item" . PHP_EOL;
     }
 
@@ -83,7 +83,7 @@ class Items {
      * @return void
      */
     public function clear(): void {
-        file_put_contents($this->fileName, '');
+        file_put_contents($this->getFilePath(), '');
         echo "All items cleared" . PHP_EOL;
     }
 
@@ -145,14 +145,14 @@ class Items {
      * @return bool|array
      */
     private function getContentAsArray(): bool|array {
-        return file_exists($this->fileName) ? file($this->fileName, FILE_SKIP_EMPTY_LINES) : [];
+        return file_exists($this->getFilePath()) ? file($this->getFilePath(), FILE_SKIP_EMPTY_LINES) : [];
     }
 
     /**
      * @return string
      */
     private function getContentAsString(): string {
-        return file_exists($this->fileName) ? file_get_contents($this->fileName) : "";
+        return file_exists($this->getFilePath()) ? file_get_contents($this->getFilePath()) : "";
     }
 
     /**
@@ -179,5 +179,19 @@ class Items {
             exit(1);
         }
         return $price;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFileName(): string {
+        return $this->fileName;
+    }
+
+    /**
+     * @return string
+     */
+    private function getFilePath(): string {
+        return "files/" . $this->getFileName();
     }
 }

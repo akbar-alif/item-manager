@@ -1,8 +1,8 @@
 <?php
 
-require_once "helpers.php";
-require_once "Items.php";
-require_once "Commands.php";
+require_once "src/helpers.php";
+require_once "src/Items.php";
+require_once "src/Commands.php";
 
 checkIfArgumentsAreGiven($argc);
 
