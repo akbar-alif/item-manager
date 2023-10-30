@@ -109,10 +109,10 @@ class Items {
 
     /**
      * @param string $itemName
-     * @param int $itemPrice
+     * @param int|float $itemPrice
      * @return string
      */
-    private function getItem(string $itemName, int $itemPrice): string {
+    private function getItem(string $itemName, int|float $itemPrice): string {
         return "$itemName - $itemPrice" . PHP_EOL;
     }
 
